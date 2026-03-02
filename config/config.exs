@@ -7,6 +7,19 @@
 # General application configuration
 import Config
 
+config :pollz, :scopes,
+  user: [
+    default: true,
+    module: Pollz.Accounts.Scope,
+    assign_key: :current_scope,
+    access_path: [:user, :id],
+    schema_key: :user_id,
+    schema_type: :id,
+    schema_table: :users,
+    test_data_fixture: Pollz.AccountsFixtures,
+    test_setup_helper: :register_and_log_in_user
+  ]
+
 config :pollz,
   ecto_repos: [Pollz.Repo],
   generators: [timestamp_type: :utc_datetime]
