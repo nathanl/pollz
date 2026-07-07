@@ -1,18 +1,17 @@
 # Pollz
 
-To start your Phoenix server:
+A starting point for an Elixir Phoenix app to create polls.
+Feature ideas:
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+- Create a poll with questions and options
+- Let people vote
+- Display vote tallies
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+# Getting up and Running
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+- Ensure PostgreSQL is running
+- `mix deps.get`
+- `mix ecto.setup`
+- `iex -S mix phx.server`
+- Register a user
+- `/dev/mailbox/` has the registration email
