@@ -41,3 +41,5 @@ npm-debug.log
 .envrc
 
 .postgresql
+
+scratch_notes.md
