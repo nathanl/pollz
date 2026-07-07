@@ -35,3 +35,7 @@ pollz-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# direnv cache
+.direnv/
+
+.envrc
