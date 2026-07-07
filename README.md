@@ -3,9 +3,9 @@
 A starting point for an Elixir Phoenix app to create polls.
 Feature ideas:
 
-- Create a poll with questions and options
-- Let people vote
-- Display vote tallies
+- Create a poll with questions and options. Eg: "What's your favorite fruit?", options: "Apple", "Banana", "Orange".
+- Let users vote on their favorite option per question
+- Display the results
 
 # Getting up and Running
 
