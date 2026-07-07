@@ -22,24 +22,34 @@ end
 
 config :pollz, PollzWeb.Endpoint, http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
-if config_env() == :prod do
-  database_url =
+# support connecting to PostgreSQL over a Unix socket
+use_socket? = config_env() in [:dev, :test] && System.get_env("PGHOST")
+
+database_url =
+  if use_socket? do
+    nil
+  else
     System.get_env("DATABASE_URL") ||
       raise """
       environment variable DATABASE_URL is missing.
       For example: ecto://USER:PASS@HOST/DATABASE
       """
+  end
 
-  maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
+maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
-  config :pollz, Pollz.Repo,
-    # ssl: true,
-    url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    # For machines with several cores, consider starting multiple pools of `pool_size`
-    # pool_count: 4,
-    socket_options: maybe_ipv6
+config :pollz, Pollz.Repo,
+  url: database_url,
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  socket_options: maybe_ipv6
 
+if use_socket? do
+  # `hostname` (from config/dev.exs) must be unset, otherwise Postgrex prefers
+  # TCP over the Unix socket and ignores `socket_dir`.
+  config :pollz, Pollz.Repo, hostname: nil, socket_dir: System.get_env("PGHOST")
+end
+
+if config_env() == :prod do
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want
