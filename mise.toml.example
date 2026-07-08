@@ -1,0 +1,16 @@
+[env]
+PG_PORT = "5433"
+COMPOSE_PROJECT_NAME = "pollz"
+DATABASE_URL = "ecto://postgres:postgres@localhost:$PG_PORT/pollz_dev"
+
+[tasks."db:start"]
+description = "Start the Postgres container"
+run = "docker compose up -d"
+
+[tasks."db:stop"]
+description = "Stop the Postgres container"
+run = "docker compose stop"
+
+[tasks."db:logs"]
+description = "Tail logs for the Postgres container"
+run = "docker logs -f $(docker ps -aq --filter name=${COMPOSE_PROJECT_NAME})"
