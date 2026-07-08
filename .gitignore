@@ -39,6 +39,7 @@ npm-debug.log
 .direnv/
 
 .envrc
+mise.toml
 
 .postgresql
 
